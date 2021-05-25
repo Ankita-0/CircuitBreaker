@@ -1,0 +1,30 @@
+server:
+  port: 8082
+management:
+  metrics:
+    enable:
+      resilience4j:
+        circuitbreaker:
+          calls: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      secondService:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 3
+        ringBufferSizeInHalfOpenState: 2
+        minimumNumberOfCalls: 3
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 10s
+        failureRateThreshold: 70
+        eventConsumerBufferSize: 10
+
+  ratelimiter:
+    instances:
+      secondService:
+        registerHealthIndicator: true
+        timeoutDuration: 1500ms
+        limitRefreshPeriod: 18000
+        limitForPeriod: 3
