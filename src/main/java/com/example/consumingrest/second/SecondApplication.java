@@ -39,7 +39,7 @@ public class SecondApplication {
 	@GetMapping("/get")
 	@ResponseStatus(HttpStatus.OK)
 	@CircuitBreaker(name = MAIN_SERVICE , fallbackMethod="testFallBack")
-	public ResponseEntity<String> getSleuthTest(){
+	public ResponseEntity<String> getBatchesTest(){
 		log.info("Calling main microservice from second microservice");
 		String response = restTemplate.getForObject("http://localhost:8080/batches", String.class);
 		return new ResponseEntity<String>(response, HttpStatus.OK);
